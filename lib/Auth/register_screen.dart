@@ -97,128 +97,119 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('')),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-                child: Text(
-                  'Register',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(height: 40), // Spacing
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-                child: Text(
-                  'Username',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-                child: TextField(
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your name',
-                    border: OutlineInputBorder(),
+      appBar: AppBar(title: Text('')),
+      body: SingleChildScrollView(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 500),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  Text(
+                    'Register',
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-                child: Text(
-                  'Email',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-                child: TextField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your email',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 32),
+                  Text(
+                    'Username',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-                child: Text(
-                  'Password',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-                child: TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your password',
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.lock_outline),
-                  ),
-                ),
-              ),
-              SizedBox(height: 25),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-                child: Text(
-                  'Confirm Password',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-                child: TextField(
-                  controller: _confirmPasswordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: 'Re-enter your password',
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.lock_outline),
-                  ),
-                ),
-              ),
-              SizedBox(height: 30),
-              Center(
-                child: SizedBox(
-                  width: 350,
-                  height: 60,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 92, 117, 225),
+                  SizedBox(height: 8),
+                  TextField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter your name',
+                      border: OutlineInputBorder(),
                     ),
-                    onPressed: _loading ? null : _createAccount,
-                    child: _loading
-                        ? SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                            ),
-                          )
-                        : Text(
-                            'Register',
-                            style: TextStyle(
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              fontSize: 20,
-                            ),
-                          ),
                   ),
-                ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Email',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      hintText: 'Enter your email',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Password',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: 'Enter your password',
+                      border: OutlineInputBorder(),
+                      suffixIcon: Icon(Icons.lock_outline),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Confirm Password',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    controller: _confirmPasswordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: 'Re-enter your password',
+                      border: OutlineInputBorder(),
+                      suffixIcon: Icon(Icons.lock_outline),
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 400),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 55,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 92, 117, 225),
+                          ),
+                          onPressed: _loading ? null : _createAccount,
+                          child: _loading
+                              ? SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  ),
+                                )
+                              : Text(
+                                  'Register',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                ],
               ),
-            ],
+            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

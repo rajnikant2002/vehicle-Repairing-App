@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/map_screen.dart';
+import 'map_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Auth/login_screen.dart';
 
@@ -44,71 +44,107 @@ class _VehicleScreenState extends State<VehicleScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text.rich(
-              TextSpan(
+      body: SingleChildScrollView(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 500),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextSpan(
-                    text: 'Welcome, ${widget.userName}! ',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Welcome, ${widget.userName}! ',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        WidgetSpan(
+                          child: Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                            size: 24,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  WidgetSpan(
-                    child: Icon(Icons.favorite,
-                        color: Colors.red, size: 28), // Heart Icon
+                  SizedBox(height: 24),
+                  Text(
+                    "Choose Your Vehicle:",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  SizedBox(height: 20),
+                  Column(
+                    children: vehicles.map((vehicle) {
+                      return RadioListTile(
+                        title: Row(
+                          children: [
+                            Icon(
+                              vehicle["icon"],
+                              size: 28,
+                              color: Colors.blue,
+                            ),
+                            SizedBox(width: 16),
+                            Text(
+                              vehicle["name"],
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ],
+                        ),
+                        value: vehicle["name"],
+                        groupValue: _selectedVehicle,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedVehicle = value.toString();
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                  SizedBox(height: 32),
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 400),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 55,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 92, 117, 225),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    MapScreen(selectedVehicle: _selectedVehicle),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Confirm Selection",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 32),
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            Text("Choose Your Vehicle:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            SizedBox(height: 20),
-            Column(
-              children: vehicles.map((vehicle) {
-                return RadioListTile(
-                  title: Row(
-                    children: [
-                      Icon(vehicle["icon"], size: 30, color: Colors.blue),
-                      SizedBox(width: 10),
-                      Text(vehicle["name"], style: TextStyle(fontSize: 18)),
-                    ],
-                  ),
-                  value: vehicle["name"],
-                  groupValue: _selectedVehicle,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedVehicle = value.toString();
-                    });
-                  },
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 92, 117, 225),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          MapScreen(selectedVehicle: _selectedVehicle),
-                    ),
-                  );
-                },
-                child: Text(
-                  "Confirm Selection",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

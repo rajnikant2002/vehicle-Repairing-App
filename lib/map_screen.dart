@@ -136,25 +136,27 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Nearby Repair Shops')),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(16),
         child: Column(
           children: [
             // Vehicle image card
-            Container(
-              height: 250,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: Image.asset(
-                getVehicleImage(widget.selectedVehicle),
-                height: 100,
-                fit: BoxFit.cover,
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 500),
+              child: Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: Image.asset(
+                  getVehicleImage(widget.selectedVehicle),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            SizedBox(height: 12),
+            SizedBox(height: 16),
             // Google Map
             Expanded(
               child: Container(
@@ -176,29 +178,45 @@ class _MapScreenState extends State<MapScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 16),
             // Nearby shops button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RepairShopsScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+            Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 500),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 55,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RepairShopsScreen(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    icon: Icon(
+                      Icons.store_mall_directory_outlined,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      'Nearby Shops',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
                 ),
-                icon: Icon(Icons.store_mall_directory_outlined, color: Colors.white),
-                label: Text('Nearby Shops', style: TextStyle(color: Colors.white)),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 16),
           ],
         ),
       ),

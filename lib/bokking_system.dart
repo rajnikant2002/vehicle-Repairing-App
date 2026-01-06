@@ -81,48 +81,61 @@ class RepairShopsScreen extends StatelessWidget {
             ? "Selected Shop"
             : "Nearby Repair Shops"),
       ),
-      body: ListView.builder(
-        itemCount: filteredShops.length,
-        itemBuilder: (context, index) {
-          final shop = filteredShops[index];
-          return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ListTile(
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              title: Text(
-                shop["name"],
-                style: const TextStyle(
-                    fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                "📍 ${shop["distance"]} | ⭐ ${shop["rating"]} | ⏳ ${shop["responseTime"]}",
-                style: const TextStyle(fontSize: 15),
-              ),
-              trailing: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 600),
+          child: ListView.builder(
+            padding: EdgeInsets.all(16),
+            itemCount: filteredShops.length,
+            itemBuilder: (context, index) {
+              final shop = filteredShops[index];
+              return Card(
+                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: ListTile(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  title: Text(
+                    shop["name"],
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(
+                    "📍 ${shop["distance"]} | ⭐ ${shop["rating"]} | ⏳ ${shop["responseTime"]}",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  trailing: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ServiceRequestScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Select Shop",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ServiceRequestScreen(),
-                    ),
-                  );
-                },
-                child: const Text("Select Shop"),
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }

@@ -57,25 +57,53 @@ class ShopkeeperDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Service Requests")),
-      body: ListView.builder(
-        itemCount: requests.length,
-        itemBuilder: (context, index) {
-          return Card(
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            elevation: 3,
-            child: ListTile(
-              title: Text(requests[index]["user"], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              subtitle: Text("${requests[index]["vehicle"]} - ${requests[index]["issue"]} - ${requests[index]["distance"]}"),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(icon: Icon(Icons.call, color: Colors.green), onPressed: () {}),
-                  IconButton(icon: Icon(Icons.check, color: Colors.blue), onPressed: () {}),
-                ],
-              ),
-            ),
-          );
-        },
+      body: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 600),
+          child: ListView.builder(
+            padding: EdgeInsets.all(16),
+            itemCount: requests.length,
+            itemBuilder: (context, index) {
+              return Card(
+                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: ListTile(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  title: Text(
+                    requests[index]["user"],
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(
+                    "${requests[index]["vehicle"]} - ${requests[index]["issue"]} - ${requests[index]["distance"]}",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.call, color: Colors.green),
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.check, color: Colors.blue),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }

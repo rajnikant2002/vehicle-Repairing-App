@@ -24,29 +24,35 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 280,
-              width: 280,
-              child: Lottie.asset('assets/animation/driving.json',
-                  fit: BoxFit.contain),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Vehicle Repair',
-              style: TextStyle(
-                  fontSize: 22,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 400),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 250,
+                width: 250,
+                child: Lottie.asset(
+                  'assets/animation/driving.json',
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(height: 24),
+              Text(
+                'Vehicle Repair',
+                style: TextStyle(
+                  fontSize: 24,
                   fontWeight: FontWeight.w700,
-                  color: Colors.blue[700]),
-            ),
-            SizedBox(height: 16),
-            SizedBox(
-              width: 160,
-              child: LinearProgressIndicator(minHeight: 4),
-            )
-          ],
+                  color: Colors.blue[700],
+                ),
+              ),
+              SizedBox(height: 20),
+              SizedBox(
+                width: 200,
+                child: LinearProgressIndicator(minHeight: 4),
+              ),
+            ],
+          ),
         ),
       ),
     );

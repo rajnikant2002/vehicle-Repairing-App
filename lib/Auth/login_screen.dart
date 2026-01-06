@@ -118,170 +118,166 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Aligns text to the left
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-            child: Text(
-              'Login',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 80), // Spacing
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-            child: Text(
-              'Email',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-            child: TextField(
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                hintText: 'Enter your email',
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-            child: Text(
-              'Password',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0), // Add padding
-            child: TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: 'Enter your password',
-                border: OutlineInputBorder(),
-                suffixIcon: Icon(Icons.lock_outline),
-              ),
-            ),
-          ),
-          SizedBox(height: 5),
-          Align(
-            alignment: Alignment.centerRight, // Aligns text to the right
+      body: SingleChildScrollView(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 500),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ForgotPasswordScreen(),
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  Text(
+                    'Login',
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 32),
+                  Text(
+                    'Email',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      hintText: 'Enter your email',
+                      border: OutlineInputBorder(),
                     ),
-                  );
-                },
-                child: Text(
-                  'Forgot Password?',
-                  style: TextStyle(fontSize: 15, color: Colors.blue),
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: SizedBox(
-              width: 350,
-              height: 60,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 92, 117, 225),
-                ),
-                onPressed: _loading ? null : _login,
-                child: _loading
-                    ? SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      )
-                    : Text(
-                        'Login',
-                        style: TextStyle(
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 20,
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Password',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: 'Enter your password',
+                      border: OutlineInputBorder(),
+                      suffixIcon: Icon(Icons.lock_outline),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgotPasswordScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(fontSize: 16, color: Colors.blue),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 400),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 55,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 92, 117, 225),
+                          ),
+                          onPressed: _loading ? null : _login,
+                          child: _loading
+                              ? SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  ),
+                                )
+                              : Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
                         ),
                       ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(40.0),
-            child: Center(
-                child: Text(
-              '-----------Or Register with-----------',
-              style: TextStyle(fontSize: 15),
-            )),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(width: 10),
-                OutlinedButton.icon(
-                  onPressed: _loginWithGoogle,
-                  label: Image.asset('assets/google-logo.png', height: 29),
-                ),
-                SizedBox(width: 30),
-                OutlinedButton.icon(
-                  onPressed: () {},
-                  label: Image.asset('assets/Facebook-logo.png', height: 27),
-                ),
-                SizedBox(width: 30),
-                OutlinedButton.icon(
-                  onPressed: () {},
-                  label: Image.asset('assets/apple-logo.jpg', height: 34),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(40.0),
-            child: Center(
-              child: RichText(
-                text: TextSpan(
-                  text: 'Dont have an account? ',
-                  style: TextStyle(
-                      fontSize: 15, color: Colors.black), // Normal text
-                  children: [
-                    TextSpan(
-                      text: 'Register',
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold), // Styled as a link
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // Navigate to login screen
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterScreen()),
-                          );
-                        },
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 32),
+                  Center(
+                    child: Text(
+                      '-----------Or Register with-----------',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      OutlinedButton.icon(
+                        onPressed: _loginWithGoogle,
+                        icon: Image.asset('assets/google-logo.png', height: 28),
+                        label: SizedBox.shrink(),
+                      ),
+                      SizedBox(width: 16),
+                      OutlinedButton.icon(
+                        onPressed: () {},
+                        icon:
+                            Image.asset('assets/Facebook-logo.png', height: 26),
+                        label: SizedBox.shrink(),
+                      ),
+                      SizedBox(width: 16),
+                      OutlinedButton.icon(
+                        onPressed: () {},
+                        icon: Image.asset('assets/apple-logo.jpg', height: 32),
+                        label: SizedBox.shrink(),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 32),
+                  Center(
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Dont have an account? ',
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text: 'Register',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RegisterScreen(),
+                                  ),
+                                );
+                              },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                ],
               ),
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
