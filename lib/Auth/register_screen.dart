@@ -16,6 +16,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   bool _loading = false;
+  bool _obscurePassword = true; // To hide/show password
+  bool _obscureConfirmPassword = true; // To hide/show confirm password
 
   @override
   void dispose() {
@@ -147,11 +149,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(height: 8),
                   TextField(
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       hintText: 'Enter your password',
                       border: OutlineInputBorder(),
-                      suffixIcon: Icon(Icons.lock_outline),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -162,11 +175,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(height: 8),
                   TextField(
                     controller: _confirmPasswordController,
-                    obscureText: true,
+                    obscureText: _obscureConfirmPassword,
                     decoration: InputDecoration(
                       hintText: 'Re-enter your password',
                       border: OutlineInputBorder(),
-                      suffixIcon: Icon(Icons.lock_outline),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureConfirmPassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureConfirmPassword = !_obscureConfirmPassword;
+                          });
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(height: 32),
